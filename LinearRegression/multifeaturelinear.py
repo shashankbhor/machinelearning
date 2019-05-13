@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @author: Shashank
+- Data should follow some linearity in data 
 This model demostrates how should we check the p-Value 
 and keep only co-related features for model building
 """
