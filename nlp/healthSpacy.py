@@ -24,3 +24,5 @@ for num,sentence in enumerate(docObj.sents):
     
 lst_sen=[sentenses.text for sentenses in docObj.sents]
 lst_tok=[tok.text for tok in docObj]
+
+
