@@ -13,9 +13,9 @@ import spacy
 nlp=spacy.load('en')
 
 doc=nlp('My name is Shashank. I work at Google')
-
     
 for entity in doc.ents:
     print(entity.text, entity.label_)
     
 lst_ent=[ent.text for ent in doc.ents]
+
