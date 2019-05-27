@@ -5,14 +5,15 @@ class Training:
         print('inside')
         
     def buildModel(self,modelConfiguration):
-        print(modelConfiguration)
         if not isinstance(modelConfiguration,ModelConfiguration):
             raise Exception('The model configuration is not set')
             return
         else:
             print('Starting Model configuration..')
         
-        TRAIN_DATA = data
+        TRAIN_DATA = modelConfiguration.trainingSet
+        iterations = modelConfiguration.epochs
+        
         nlp = spacy.blank('en')  # create blank Language class
         if 'ner' not in nlp.pipe_names:
             ner = nlp.create_pipe('ner')
@@ -28,13 +29,13 @@ class Training:
         other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
         with nlp.disable_pipes(*other_pipes):  # only train NER
             optimizer = nlp.begin_training()
-            for itn in range(20):
+            for itn in range(iterations):
                 random.shuffle(TRAIN_DATA)
                 losses = {}
                 for text, annotations in TRAIN_DATA:
                     print(annotations)
                     nlp.update(
-                        [text,text],  # batch of texts
+                        [text]*len(ner.labels),  # batch of texts
                         annotations,  # batch of annotations
                         drop=0.2,  # dropout - make it harder to memorise data
                         sgd=optimizer,  # callable to update weights

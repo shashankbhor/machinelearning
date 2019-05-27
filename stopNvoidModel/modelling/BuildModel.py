@@ -6,10 +6,9 @@ Created on Sat May 18 21:17:17 2019
 @author: Shashank
 Add new entities to be identified for business purpose  
 """
-from ModelConfiguration import ModelConfiguration 
 
 class BuildModel:
-    def __init__():
+    def __init__(self):
         print('in init')
     
     def trainModel(self):

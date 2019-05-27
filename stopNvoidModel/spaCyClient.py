@@ -29,6 +29,7 @@ training_data = [
                           ]
 
 
+
 # Build Model Configuration 
 modelConf=ModelConfiguration('Shanky')
 modelConf.addTrainingData(training_data)
@@ -38,6 +39,7 @@ s=Training()
 model=s.buildModel(modelConf)
 
 doc = model('#pls. stop the check# 2870822 Stoped / Reissued')
+ 
 #Check # 2870820 Stoped / Reissued
 for ent in doc.ents:
     print(ent.text, ent.start_char, ent.end_char, ent.label_)
