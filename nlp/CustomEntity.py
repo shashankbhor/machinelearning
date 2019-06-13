@@ -78,9 +78,6 @@ TRAIN_DATA = [
 ('Please do a stop pay on the two checks sent out for Claimant repairs  ',{'entities': [(12, 19, 'check_instruction')]}),
 ('CA - please stop and re-issue to clmnt check to new address provided below  ;  Thank you',{'entities': [(21, 29, 'check_instruction')]}),
 ('requests stop pay and reissue Check #/ EFT #:   000002950440',{'entities': [(48, 60, 'check_number'),(22, 29, 'check_instruction')]}),    
-] 
-    
-GOLD_DATA=[
 ('Check team Pls VOID Check #3018677?',{'entities': [(27, 34, 'check_number'),(15, 19, 'check_instruction')]}),
 ('Please stop pay check Vehicle is a total loss Check #/ EFT #: 000002861786 ',{'entities': [(62, 74, 'check_number'),(7, 11, 'check_instruction')]}),
 ('Pls stop pymt and reissue.; Pls overnight, no ignature required.; Thx; Check #/ EFT #: 000002989352',{'entities': [(87, 99, 'check_number'),(18, 25, 'check_instruction')]}),
@@ -97,7 +94,6 @@ GOLD_DATA=[
                          ('This is not right format', {'entities': []})
  ]
     
-GOLD_DATA=TRAIN_DATA                         
 nlp = spacy.load('en_core_web_lg')  # create language class
 print(f'Current vocab size :{len(nlp.vocab)}')
 
@@ -118,7 +114,7 @@ for token in doc:
     
 # Lets see how does it looks on default 
 from spacy import displacy 
-displacy.serve(doc, style='ent')
+#displacy.serve(doc, style='ent')
 
 ner = nlp.get_pipe('ner')
 
@@ -173,10 +169,10 @@ other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
 with nlp.disable_pipes(*other_pipes):  # only train NER
     optimizer = nlp.begin_training()
     for itn in range(200):
-        random.shuffle(GOLD_DATA)
+        random.shuffle(TRAIN_DATA)
         losses = {}
         # batch up the examples using spaCy's minibatch
-        batches = minibatch(GOLD_DATA) #, size=compounding(4., 32., 1.001))
+        batches = minibatch(TRAIN_DATA) #, size=compounding(4., 32., 1.001))
         for batch in batches:
             texts, annotations = zip(*batch)
             nlp.update(texts, annotations, sgd=optimizer, drop=0.35, losses=losses)
@@ -196,4 +192,6 @@ doc = nlp(text)
 for ent in doc.ents:
     print (ent.start_char, ent.text, ent.label_)
 
+# Lets see how does it looks on default 
+displacy.serve(doc, style='ent')
         
