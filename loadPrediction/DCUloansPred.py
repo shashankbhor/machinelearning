@@ -41,6 +41,7 @@ from sklearn import tree
 model=BaggingClassifier(tree.DecisionTreeClassifier(random_state=1))
 model.fit(x_train,y_train)
 model.score(x_test, y_test)
+pred = model.predict(x_test)
 
 # Lets check for RandomForest
 from sklearn.ensemble import RandomForestClassifier

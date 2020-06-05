@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from modelling.ModelConfiguration import ModelConfiguration
+
+import spacy
+import random
+from spacy import displacy
+
 class Training:
     def __init__(self):
         print('inside')
@@ -33,9 +39,8 @@ class Training:
                 random.shuffle(TRAIN_DATA)
                 losses = {}
                 for text, annotations in TRAIN_DATA:
-                    print(annotations)
                     nlp.update(
-                        [text]*len(ner.labels),  # batch of texts
+                        [text]*len(annotations),  # batch of texts
                         annotations,  # batch of annotations
                         drop=0.2,  # dropout - make it harder to memorise data
                         sgd=optimizer,  # callable to update weights
