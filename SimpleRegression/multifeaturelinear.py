@@ -40,23 +40,23 @@ print(regressor.score(X_test,y_test))
 # Predicting the Test set results
 y_pred = regressor.predict(X_test)
 
-
-''' -----------------------------------------------------'''
+''' ------------------------------------------------------'''
 '''    Optimizing the model using backward elimination    '''
-''' -------------------------------------------------------'''
+''' Though sklearn classes will automatically do this     '''  
+''' ------------------------------------------------------'''
 
-import statsmodels.formula.api as sm
-# Adding first column as '1' to insure b0*X0 =b0 (of b0X0 + b1X1 + b2X2 ..)
+import statsmodels.api as sm
+# Adding first column as '1' to ensure b0*X0 =b0 (of b0X0 + b1X1 + b2X2 ..)
 X=np.append(arr=np.ones((50,1)).astype(int), values=X, axis=1)
 X_opt=X[:,[0,1,2,3,4,5]]
 regressor_OLS=sm.OLS(endog=y,exog=X_opt).fit()
 regressor_OLS.summary()
 # Above execution gave 99% P-value for X2 (i.e. 3th column) so removing it for next iteration
-X_opt=X[:,[0,1,3,4,5]]
+X_opt=X[:,[0,1,2,3,5]]
 regressor_OLS=sm.OLS(endog=y,exog=X_opt).fit()
 regressor_OLS.summary()
 # removing 2
-X_opt=X[:,[0,3,4,5]]
+X_opt=X[:,[0,1,2,3,5]]
 regressor_OLS=sm.OLS(endog=y,exog=X_opt).fit()
 regressor_OLS.summary()
 #Removing 4
