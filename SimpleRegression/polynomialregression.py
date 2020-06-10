@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 @author: Shashank
-- Polynominal models are used where the input data does not linearly alinged  
+- Polynominal models are used where the input data does not linearly alinged
+but still this is part of linear regression as the (polynomial) coeficients will be linearly aligned  
 """
 
 import numpy as np
@@ -51,5 +52,8 @@ plt.title('Simplel Linear Model')
 plt.show()
 
 # Predictions 
-lin_reg2.predict(np.reshape(6.5))
+lin_reg.predict(np.reshape(6.5,(1,1)))
+TEST_poly=poly_reg.fit_transform(np.reshape(6.5,(1,1)))
+
+lin_reg2.predict(TEST_poly)
 lin_reg.predict(poly_reg.fit_transform(6.5)) 
